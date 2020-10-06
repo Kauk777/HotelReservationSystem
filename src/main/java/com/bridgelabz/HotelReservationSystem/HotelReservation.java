@@ -19,6 +19,47 @@ public class HotelReservation
 		hotels.add(hd);
 	}
 	
+	public String findCheapestHotel(int days) {
+		Integer total[]=new Integer[3];
+		int i=0;
+		for(HotelDetails hd:hotels) {
+			total[i]=days*(hd.getRateWeekday()+hd.getRateWeekend());
+			i++;
+		}
+		int minCost=Math.min(total[0], Math.min(total[1], total[2]));
+		if(minCost==total[0] && minCost==total[1])
+		{
+			System.out.println("Lakewood and Bridgewood with total cost: $"+minCost);
+			return "Lakewood and Bridgewood";
+		}
+		else if(minCost==total[0] && minCost==total[2])
+		{
+			System.out.println("Lakewood and Ridgewood with total cost: $"+minCost);
+			return "Lakewood and Ridgewood";
+		}
+		else if(minCost==total[1] && minCost==total[2])
+		{
+			System.out.println("Bridgewood and Ridgewood with total cost: $"+minCost);
+			return "Ridgewood and Bridgewood";
+		}
+			
+		else if(minCost==total[0])
+		{
+			System.out.println("Lakewood with total cost: $"+minCost);
+			return "Lakewood";
+		}
+		else if(minCost==total[1])
+		{
+			System.out.println("Bridgewood with total cost: $"+minCost);
+			return "Bridgewood";
+		}	
+		else
+		{
+			System.out.println("Ridgewood with total cost: $"+minCost);
+			return "Ridgewood";
+		}					
+	}
+	
     public static void main( String[] args )
     {
         System.out.println( "***Welcome to hotel reservation program***" );
@@ -26,5 +67,11 @@ public class HotelReservation
         h.addDetails("Lakewood",110,90);
         h.addDetails("Bridgewood",150,50);
         h.addDetails("Ridgewood",220,150); 
+        
+        LocalDate startDate=LocalDate.of(2020, Month.SEPTEMBER, 11);
+        LocalDate endDate=LocalDate.of(2020, Month.SEPTEMBER, 12);
+        long noOfDays=ChronoUnit.DAYS.between(startDate,endDate);
+        System.out.println((int)noOfDays);
+        System.out.println(h.findCheapestHotel((int)noOfDays));
     }
 }

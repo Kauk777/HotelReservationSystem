@@ -7,8 +7,10 @@ import java.util.*;
 public class HotelTest 
 {	
     @Test
-    public void givendateRange_WhenHotelProper_ShouldReturnTrue() 
+    public void givenDateRange_WhenHotelProper_ShouldReturnTrue() 
     {
-        Assert.assertEquals("Lakewood","Lakewood");
+    	HotelReservation hotel=new HotelReservation();
+    	String hotelName=hotel.findCheapestHotel(1);
+        Assert.assertEquals("Lakewood and Bridgewood", hotelName);
     }
 }
