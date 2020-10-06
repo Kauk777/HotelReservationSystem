@@ -9,6 +9,9 @@ import java.util.Comparator;
 public class HotelReservation 
 {
 	private List<HotelDetails> hotels;
+	private static int lakewoodRating=3;
+	private static int bridgewoodRating=4;
+	private static int ridgewoodRating=5;
 	
 	public HotelReservation() {
 		hotels=new ArrayList<>();
