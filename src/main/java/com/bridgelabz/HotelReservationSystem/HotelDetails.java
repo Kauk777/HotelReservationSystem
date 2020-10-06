@@ -5,10 +5,20 @@ import java.util.*;
 public class HotelDetails implements Comparable {
 	private String hotelName;
 	private int rateWeekdayRegCust;
+	private int rateWeekend;
 	
-	public HotelDetails(String hotelName, int rateWeekdayRegCust) {
+	public HotelDetails(String hotelName, int rateWeekdayRegCust, int rateWeekend) {
 		this.hotelName = hotelName;
 		this.rateWeekdayRegCust = rateWeekdayRegCust;
+		this.rateWeekend=rateWeekend;
+	}
+
+	public int getRateWeekend() {
+		return rateWeekend;
+	}
+
+	public void setRateWeekend(int rateWeekend) {
+		this.rateWeekend = rateWeekend;
 	}
 
 	public String getHotelName() {
