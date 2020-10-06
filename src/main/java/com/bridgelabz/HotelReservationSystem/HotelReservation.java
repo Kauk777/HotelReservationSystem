@@ -77,21 +77,14 @@ public class HotelReservation
 		}					
 	}
 	
-	public String bestRatedHotel(int days) {
+	public String bestRatedHotel() {
 		int maxRating=Math.max(lakewoodRating, Math.max(bridgewoodRating, ridgewoodRating));
-		if(maxRating==lakewoodRating) {
-			System.out.println("Total rates: $"+days*(hotelsRegular.get(0).getRateWeekday()+hotelsRegular.get(0).getRateWeekend()));
+		if(maxRating==lakewoodRating)
 			return "Lakewood";
-		}
-		else if(maxRating==bridgewoodRating) {
-			System.out.println("Total rates: $"+days*(hotelsRegular.get(1).getRateWeekday()+hotelsRegular.get(1).getRateWeekend()));
+		else if(maxRating==bridgewoodRating)
 			return "Bridgewood";
-		}
-		else {
-			System.out.println("Total rates: $"+days*(hotelsRegular.get(2).getRateWeekday()+hotelsRegular.get(2).getRateWeekend()));
+		else 
 			return "Ridgewood";
-		}
-		
 	}
 	
     public static void main( String[] args )
@@ -109,8 +102,9 @@ public class HotelReservation
         LocalDate startDate=LocalDate.of(2020, Month.SEPTEMBER, 11);
         LocalDate endDate=LocalDate.of(2020, Month.SEPTEMBER, 12);
         long noOfDays=ChronoUnit.DAYS.between(startDate,endDate);
-        System.out.println((int)noOfDays);
-        System.out.println("Cheapest best rated hotel: "+h.findCheapestHotel((int)noOfDays,"Regular"));
-        System.out.println("Best rated hotel: "+h.bestRatedHotel((int)noOfDays));
+        System.out.println("Number of days: "+(int)noOfDays);
+        System.out.println("Cheapest best rated hotel for regular customers: "+h.findCheapestHotel((int)noOfDays,"Regular"));
+        System.out.println("Best rated hotel: "+h.bestRatedHotel());
+        System.out.println("Cheapest best rated hotel for reward customers: "+h.findCheapestHotel((int)noOfDays,"Reward"));
     }
 }
