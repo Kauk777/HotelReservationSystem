@@ -8,23 +8,37 @@ import java.util.Comparator;
 
 public class HotelReservation 
 {
-	private List<HotelDetails> hotels;
+	private List<HotelDetails> hotelsRegular;
+	private List<HotelDetails> hotelsReward;
 	private static int lakewoodRating=3;
 	private static int bridgewoodRating=4;
 	private static int ridgewoodRating=5;
 	
 	public HotelReservation() {
-		hotels=new ArrayList<>();
+		hotelsRegular=new ArrayList<>();
+		hotelsReward=new ArrayList<>();
+		
 	}
 	
-	public void addDetails(String hName, int weekRate, int weekendRate) {
+	public void addRegularDetails(String hName, int weekRate, int weekendRate) {
 		HotelDetails hd=new HotelDetails(hName,weekRate,weekendRate);
-		hotels.add(hd);
+		hotelsRegular.add(hd);
 	}
 	
-	public String findCheapestHotel(int days) {
+	public void addRewardDetails(String hName, int weekRate, int weekendRate) {
+		HotelDetails hd=new HotelDetails(hName,weekRate,weekendRate);
+		hotelsReward.add(hd);
+	}
+	
+	public String findCheapestHotel(int days, String loyalty) {
 		Integer total[]=new Integer[3]; //total[0]:Lakewood, total[1]:Bridgewood, total[2]:Ridgewood
 		int i=0;
+		List<HotelDetails> hotels=new ArrayList<>();
+		if(loyalty.equals("Regular"))
+			hotels.addAll(hotelsRegular);
+		else
+			hotels.addAll(hotelsReward);
+		
 		for(HotelDetails hd:hotels) {
 			total[i]=days*(hd.getRateWeekday()+hd.getRateWeekend());
 			i++;
@@ -66,15 +80,15 @@ public class HotelReservation
 	public String bestRatedHotel(int days) {
 		int maxRating=Math.max(lakewoodRating, Math.max(bridgewoodRating, ridgewoodRating));
 		if(maxRating==lakewoodRating) {
-			System.out.println("Total rates: $"+days*(hotels.get(0).getRateWeekday()+hotels.get(0).getRateWeekend()));
+			System.out.println("Total rates: $"+days*(hotelsRegular.get(0).getRateWeekday()+hotelsRegular.get(0).getRateWeekend()));
 			return "Lakewood";
 		}
 		else if(maxRating==bridgewoodRating) {
-			System.out.println("Total rates: $"+days*(hotels.get(1).getRateWeekday()+hotels.get(1).getRateWeekend()));
+			System.out.println("Total rates: $"+days*(hotelsRegular.get(1).getRateWeekday()+hotelsRegular.get(1).getRateWeekend()));
 			return "Bridgewood";
 		}
 		else {
-			System.out.println("Total rates: $"+days*(hotels.get(2).getRateWeekday()+hotels.get(2).getRateWeekend()));
+			System.out.println("Total rates: $"+days*(hotelsRegular.get(2).getRateWeekday()+hotelsRegular.get(2).getRateWeekend()));
 			return "Ridgewood";
 		}
 		
@@ -84,15 +98,19 @@ public class HotelReservation
     {
         System.out.println( "***Welcome to hotel reservation program***" );
         HotelReservation h=new HotelReservation();
-        h.addDetails("Lakewood",110,90);
-        h.addDetails("Bridgewood",150,50);
-        h.addDetails("Ridgewood",220,150); 
+        h.addRegularDetails("Lakewood",110,90);
+        h.addRegularDetails("Bridgewood",150,50);
+        h.addRegularDetails("Ridgewood",220,150); 
+        
+        h.addRewardDetails("Lakewood",80,80);
+        h.addRewardDetails("Bridgewood",110,50);
+        h.addRewardDetails("Ridgewood",100,40);
         
         LocalDate startDate=LocalDate.of(2020, Month.SEPTEMBER, 11);
         LocalDate endDate=LocalDate.of(2020, Month.SEPTEMBER, 12);
         long noOfDays=ChronoUnit.DAYS.between(startDate,endDate);
         System.out.println((int)noOfDays);
-        System.out.println("Cheapest best rated hotel: "+h.findCheapestHotel((int)noOfDays));
+        System.out.println("Cheapest best rated hotel: "+h.findCheapestHotel((int)noOfDays,"Regular"));
         System.out.println("Best rated hotel: "+h.bestRatedHotel((int)noOfDays));
     }
 }

@@ -10,7 +10,7 @@ public class HotelTest
     public void givenDateRange_WhenHotelProper_ShouldReturnTrue() 
     {
     	HotelReservation hotel=new HotelReservation();
-    	String hotelName=hotel.findCheapestHotel(1);
+    	String hotelName=hotel.findCheapestHotel(1,"Reward");
         Assert.assertEquals("Lakewood and Bridgewood", hotelName);
     }
 }
