@@ -23,7 +23,7 @@ public class HotelReservation
 	}
 	
 	public String findCheapestHotel(int days) {
-		Integer total[]=new Integer[3];
+		Integer total[]=new Integer[3]; //total[0]:Lakewood, total[1]:Bridgewood, total[2]:Ridgewood
 		int i=0;
 		for(HotelDetails hd:hotels) {
 			total[i]=days*(hd.getRateWeekday()+hd.getRateWeekend());
@@ -32,18 +32,18 @@ public class HotelReservation
 		int minCost=Math.min(total[0], Math.min(total[1], total[2]));
 		if(minCost==total[0] && minCost==total[1])
 		{
-			System.out.println("Lakewood and Bridgewood with total cost: $"+minCost);
-			return "Lakewood and Bridgewood";
+			System.out.println("Total cost: $"+minCost);
+			return lakewoodRating>bridgewoodRating ? "Lakewood" : "Bridgewood";
 		}
 		else if(minCost==total[0] && minCost==total[2])
 		{
-			System.out.println("Lakewood and Ridgewood with total cost: $"+minCost);
-			return "Lakewood and Ridgewood";
+			System.out.println("Total cost: $"+minCost);
+			return lakewoodRating>ridgewoodRating ? "Lakewood" : "Ridgewood";
 		}
 		else if(minCost==total[1] && minCost==total[2])
 		{
-			System.out.println("Bridgewood and Ridgewood with total cost: $"+minCost);
-			return "Ridgewood and Bridgewood";
+			System.out.println("Total cost: $"+minCost);
+			return bridgewoodRating>ridgewoodRating ? "Bridgewood" : "Ridgewood";
 		}
 			
 		else if(minCost==total[0])
