@@ -1,5 +1,6 @@
 package com.bridgelabz.HotelReservationSystem;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -30,8 +31,19 @@ public class HotelReservation
 		hotelsReward.add(hd);
 	}
 	
-	public String findCheapestHotel(int days, String loyalty) {
-		Integer total[]=new Integer[3]; //total[0]:Lakewood, total[1]:Bridgewood, total[2]:Ridgewood
+	public String findCheapestHotel(String input, String loyalty) {
+		String arr[]=input.split(",");
+		int numOfWeekdays=0;
+		int numOfWeekends=0;
+		for(int i=0;i<arr.length;i++)
+		{
+			LocalDate date=LocalDate.parse(arr[i]);
+			if(getDayNumber(date)==6 || getDayNumber(date)==7)
+				numOfWeekends++;
+			else
+				numOfWeekdays++;
+		}
+		Integer total[]=new Integer[3]; //total[0]:LakewoodCost, total[1]:BridgewoodCost, total[2]:RidgewoodCost
 		int i=0;
 		List<HotelDetails> hotels=new ArrayList<>();
 		if(loyalty.equals("Regular"))
@@ -40,7 +52,7 @@ public class HotelReservation
 			hotels.addAll(hotelsReward);
 		
 		for(HotelDetails hd:hotels) {
-			total[i]=days*(hd.getRateWeekday()+hd.getRateWeekend());
+			total[i]=numOfWeekdays*(hd.getRateWeekday())+numOfWeekends*(hd.getRateWeekend());
 			i++;
 		}
 		int minCost=Math.min(total[0], Math.min(total[1], total[2]));
@@ -87,6 +99,11 @@ public class HotelReservation
 			return "Ridgewood";
 	}
 	
+	// Monday is 1 and Sunday is 7
+	public int getDayNumber(LocalDate date) {
+		DayOfWeek day=date.getDayOfWeek();
+		return day.getValue();
+	}
     public static void main( String[] args )
     {
         System.out.println( "***Welcome to hotel reservation program***" );
@@ -99,12 +116,9 @@ public class HotelReservation
         h.addRewardDetails("Bridgewood",110,50);
         h.addRewardDetails("Ridgewood",100,40);
         
-        LocalDate startDate=LocalDate.of(2020, Month.SEPTEMBER, 11);
-        LocalDate endDate=LocalDate.of(2020, Month.SEPTEMBER, 12);
-        long noOfDays=ChronoUnit.DAYS.between(startDate,endDate);
-        System.out.println("Number of days: "+(int)noOfDays);
-        System.out.println("Cheapest best rated hotel for regular customers: "+h.findCheapestHotel((int)noOfDays,"Regular"));
+        String input="2020-09-11,2020-09-12";
+        System.out.println("Cheapest best rated hotel for regular customers: "+h.findCheapestHotel(input,"Regular"));
         System.out.println("Best rated hotel: "+h.bestRatedHotel());
-        System.out.println("Cheapest best rated hotel for reward customers: "+h.findCheapestHotel((int)noOfDays,"Reward"));
+        System.out.println("Cheapest best rated hotel for reward customers: "+h.findCheapestHotel(input,"Reward"));
     }
 }
