@@ -63,6 +63,23 @@ public class HotelReservation
 		}					
 	}
 	
+	public String bestRatedHotel(int days) {
+		int maxRating=Math.max(lakewoodRating, Math.max(bridgewoodRating, ridgewoodRating));
+		if(maxRating==lakewoodRating) {
+			System.out.println("Total rates: $"+days*(hotels.get(0).getRateWeekday()+hotels.get(0).getRateWeekend()));
+			return "Lakewood";
+		}
+		else if(maxRating==bridgewoodRating) {
+			System.out.println("Total rates: $"+days*(hotels.get(1).getRateWeekday()+hotels.get(1).getRateWeekend()));
+			return "Bridgewood";
+		}
+		else {
+			System.out.println("Total rates: $"+days*(hotels.get(2).getRateWeekday()+hotels.get(2).getRateWeekend()));
+			return "Ridgewood";
+		}
+		
+	}
+	
     public static void main( String[] args )
     {
         System.out.println( "***Welcome to hotel reservation program***" );
@@ -75,6 +92,7 @@ public class HotelReservation
         LocalDate endDate=LocalDate.of(2020, Month.SEPTEMBER, 12);
         long noOfDays=ChronoUnit.DAYS.between(startDate,endDate);
         System.out.println((int)noOfDays);
-        System.out.println(h.findCheapestHotel((int)noOfDays));
+        System.out.println("Cheapest best rated hotel: "+h.findCheapestHotel((int)noOfDays));
+        System.out.println("Best rated hotel: "+h.bestRatedHotel((int)noOfDays));
     }
 }
