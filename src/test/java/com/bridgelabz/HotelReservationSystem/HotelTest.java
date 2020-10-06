@@ -1,22 +1,16 @@
 package com.bridgelabz.HotelReservationSystem;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import java.util.*;
 
 public class HotelTest 
-{
-	HotelReservation hotelObj;
-	
-	@Before
-	public void initial() {
-		hotelObj=new HotelReservation();
-	}
-	
+{	
     @Test
-    public void givenMessage_WhenHotelNameProper_ShouldReturnTrue()
+    public void givendateRange_WhenHotelProper_ShouldReturnTrue() 
     {
-    	String str="Lakewood";
-        Assert.assertEquals("Lakewood",str);
+    	HotelReservation h=new HotelReservation();
+    	String hName=h.findCheapestHotel(1);
+        Assert.assertEquals("Lakewood",hName);
     }
 }

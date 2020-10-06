@@ -1,14 +1,14 @@
 package com.bridgelabz.HotelReservationSystem;
 
-public class HotelDetails {
+import java.util.*;
+
+public class HotelDetails implements Comparable {
 	private String hotelName;
 	private int rateWeekdayRegCust;
-	private int rateWeekendRegCust;
 	
-	public HotelDetails(String hotelName, int rateWeekdayRegCust, int rateWeekendRegCust) {
+	public HotelDetails(String hotelName, int rateWeekdayRegCust) {
 		this.hotelName = hotelName;
 		this.rateWeekdayRegCust = rateWeekdayRegCust;
-		this.rateWeekendRegCust=rateWeekendRegCust;
 	}
 
 	public String getHotelName() {
@@ -26,13 +26,16 @@ public class HotelDetails {
 	public void setRateWeekdayRegCust(int rateWeekdayRegCust) {
 		this.rateWeekdayRegCust = rateWeekdayRegCust;
 	}
-
-	public int getRateWeekendRegCust() {
-		return rateWeekendRegCust;
-	}
-
-	public void setRateWeekendRegCust(int rateWeekendRegCust) {
-		this.rateWeekendRegCust = rateWeekendRegCust;
-	}
 	
+	@Override
+	public String toString() {
+		return hotelName + ", Total Rates: $" + rateWeekdayRegCust;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		int compareRate=((HotelDetails)o).getRateWeekdayRegCust();
+		return this.rateWeekdayRegCust-compareRate;
+	}	
 }
