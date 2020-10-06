@@ -62,17 +62,17 @@ public class HotelReservation
 			
 		else if(minCost==total[0])
 		{
-			System.out.println("Lakewood with total cost: $"+minCost);
+			System.out.println("Lakewood with total cost: $"+minCost+",  Rating: "+lakewoodRating);
 			return "Lakewood";
 		}
 		else if(minCost==total[1])
 		{
-			System.out.println("Bridgewood with total cost: $"+minCost);
+			System.out.println("Bridgewood with total cost: $"+minCost+",  Rating: "+bridgewoodRating);
 			return "Bridgewood";
 		}	
 		else
 		{
-			System.out.println("Ridgewood with total cost: $"+minCost);
+			System.out.println("Ridgewood with total cost: $"+minCost+",  Rating: "+ridgewoodRating);
 			return "Ridgewood";
 		}					
 	}
