@@ -111,4 +111,48 @@ public class HotelTest {
 			Assert.assertEquals(HotelReservationException.ExceptionType.ENTERED_INVALID, e.exceptionType);
 		}
 	}
+	
+	@Test
+	public void givenDateRange_CheapestHotelForRegularCustomer_ShouldReturnResult() {
+		HotelReservation hotel = new HotelReservation();
+		hotel.addRegularDetails("Lakewood", 110, 90);
+		hotel.addRegularDetails("Bridgewood", 150, 50);
+		hotel.addRegularDetails("Ridgewood", 220, 150);
+		String getHotel=hotel.findCheapestHotel("2020-09-10,2020-09-11", "Regular");
+		Assert.assertEquals("Lakewood", getHotel);
+
+	}
+	
+	@Test
+	public void givenDateRange_CheapestRatedHotelForRegularCustomer_ShouldReturnResult() {
+		HotelReservation hotel = new HotelReservation();
+		hotel.addRegularDetails("Lakewood", 110, 90);
+		hotel.addRegularDetails("Bridgewood", 150, 50);
+		hotel.addRegularDetails("Ridgewood", 220, 150);
+		String getHotel=hotel.findCheapestHotel("2020-09-11,2020-09-12", "Regular");
+		Assert.assertEquals("Bridgewood", getHotel);
+
+	}
+	
+	@Test
+	public void givenDateRange_BestRatedHotelForRegularCustomer_ShouldReturnResult() {
+		HotelReservation hotel = new HotelReservation();
+		hotel.addRegularDetails("Lakewood", 110, 90);
+		hotel.addRegularDetails("Bridgewood", 150, 50);
+		hotel.addRegularDetails("Ridgewood", 220, 150);
+		String getHotel=hotel.bestRatedHotel();
+		Assert.assertEquals("Ridgewood", getHotel);
+
+	}
+	
+	@Test
+	public void givenDateRange_CheapestRatedHotelForRewardCustomer_ShouldReturnResult() {
+		HotelReservation hotel = new HotelReservation();
+		hotel.addRewardDetails("Lakewood", 80, 80);
+		hotel.addRewardDetails("Bridgewood", 110, 50);
+		hotel.addRewardDetails("Ridgewood", 100, 40);
+		String getHotel=hotel.findCheapestHotel("2020-09-11,2020-09-12", "Reward");
+		Assert.assertEquals("Ridgewood", getHotel);
+
+	}
 }

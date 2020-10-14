@@ -91,7 +91,7 @@ public class HotelReservation {
 			total[i] = numOfWeekdays * (hd.getRateWeekday()) + numOfWeekends * (hd.getRateWeekend());
 			i++;
 		}
-		int minCost = Math.min(total[0], Math.min(total[1], total[2]));
+		int minCost = Arrays.asList(total).stream().min(Comparator.naturalOrder()).get();
 		if (minCost == total[0] && minCost == total[1]) {
 			System.out.println("Total cost: $" + minCost + " for Lakewood and Bridgewood");
 			return lakewoodRating > bridgewoodRating ? "Lakewood" : "Bridgewood";
@@ -129,24 +129,5 @@ public class HotelReservation {
 	public int getDayNumber(LocalDate date) {
 		DayOfWeek day = date.getDayOfWeek();
 		return day.getValue();
-	}
-
-	public static void main(String[] args) {
-		System.out.println("***Welcome to hotel reservation program***");
-		HotelReservation hotel = new HotelReservation();
-		hotel.addRegularDetails("Lakewood", 110, 90);
-		hotel.addRegularDetails("Bridgewood", 150, 50);
-		hotel.addRegularDetails("Ridgewood", 220, 150);
-
-		hotel.addRewardDetails("Lakewood", 80, 80);
-		hotel.addRewardDetails("Bridgewood", 110, 50);
-		hotel.addRewardDetails("Ridgewood", 100, 40);
-		
-		String input1 = "2020-09-10,2020-09-11"; // YYYY-MM-DD format
-		System.out.println("Cheapest hotel for regular customers: " + hotel.findCheapestHotel(input1, "Regular"));
-		String input = "2020-09-11,2020-09-12";
-		System.out.println("Cheapest best rated hotel for regular customers: " + hotel.findCheapestHotel(input, "Regular"));
-		System.out.println("Best rated hotel: " + hotel.bestRatedHotel());
-		System.out.println("Cheapest best rated hotel for reward customers: " + hotel.findCheapestHotel(input, "Reward"));
 	}
 }
